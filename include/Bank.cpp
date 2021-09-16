@@ -17,7 +17,7 @@ Bank::Bank() {
 
 void Bank::withdraw() {
     cout << "\n Current Balance: $" << this->Accounts[this->account-1].balance << endl;   
-    cout << " Enter amount of cash to withdraw: ";
+    cout << " Enter amount of cash to withdraw: $";
     int withdraw;
     cin >> withdraw;
     if (withdraw>this->Accounts[this->account-1].balance) {
@@ -25,7 +25,7 @@ void Bank::withdraw() {
     }
     else {
         this->Accounts[this->account-1].balance -= withdraw;
-        cout << "\n Withdrawn: $" << withdraw << "\n" << "Balance left: $" << this->Accounts[this->account-1].balance << endl;   
+        cout << "\n Withdrawn: $" << withdraw << "\n" << " Balance left: $" << this->Accounts[this->account-1].balance << endl;   
     }
 }
 
@@ -35,12 +35,12 @@ void Bank::balance() {
 
 void Bank::deposit() {
     cout << "\n Current Balance: $" << this->Accounts[this->account-1].balance << endl;  
-    cout << " Enter amount of cash to deposit: ";
+    cout << " Enter amount of cash to deposit: $";
     int deposit;
     cin >> deposit;
 
     this->Accounts[this->account-1].balance += deposit;
-    cout << "\n Deposited: $" << deposit << "\n" << "Balance left: $" << this->Accounts[this->account-1].balance << endl;   
+    cout << "\n Deposited: $" << deposit << "\n" << " Balance left: $" << this->Accounts[this->account-1].balance << endl;   
 }
 
 bool Bank::checkPin(int pin) {
@@ -49,7 +49,7 @@ bool Bank::checkPin(int pin) {
 
 void Bank::selectAccount(int acc) {
     this->account = acc;
-    if (acc!=1 || acc!=2 || acc!=3) {
+    if (acc!=1 && acc!=2 && acc!=3) {
         cout << "\n Wrong Option!" << endl;
         cout << " Routing to default account [1]: Saving ... " << endl;
         this->account = 1;

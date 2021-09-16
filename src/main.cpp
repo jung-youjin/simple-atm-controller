@@ -20,11 +20,13 @@ public:
     void insertCard();
     void pinNumber();
     void selectAccount();
+    void selectAction();
 };
 
 class Bank {
 private:
     int account;
+    int action;
     // int account[3];
     int pinNumber = 1234;
     struct Account {
@@ -35,19 +37,19 @@ private:
 public:
     Bank();
     ~Bank() {}
-    int balance();
-    int deposit();
-    int withdraw();
+    void balance();
+    void deposit();
+    void withdraw();
     bool checkPin(int pin);
     void selectAccount(int acc);
+    void selectAction(int act);
     // bool bankFlow(string input);
 };
 
 void exit() {
     int exit;
-    cout << " Thank you for visiting Simple ATM!" << endl;
-    cout << " Press any key to exit.";
-    getchar();
+    cout << "\n Thank you for visiting Simple ATM!" << endl;
+    cout << " Exiting..." << endl;
 }
 
 ATM::ATM() {
@@ -58,7 +60,8 @@ ATM::ATM() {
 }
 
 void ATM::insertCard() {
-    cout << "\n  1. Insert your card: [Y/N]" << endl;
+    cout << "\n 1. Insert your card [Y/N]:";
+    
 	string input;
 	cin >> input;
 
@@ -80,6 +83,15 @@ void ATM::selectAccount() {
     cout << "\t [1]: Saving" << endl;
     cout << "\t [2]: Salary" << endl;
     cout << "\t [3]: Checking \n" << endl;
+    cout << "=> ";
+}
+
+void ATM::selectAction() {
+    cout << "\n 4. Select Option to proceed: " << endl;
+    cout << "\t [1]: See Balance" << endl;
+    cout << "\t [2]: Deposit" << endl;
+    cout << "\t [3]: Withdraw" << endl;
+    cout << "=> ";
 }
 
 Bank::Bank() {
@@ -92,8 +104,32 @@ Bank::Bank() {
     this->Accounts.push_back(checking);
 }
 
-int Bank::balance() {
-    int balance;
+void Bank::withdraw() {
+    cout << "\n Current Balance: $" << this->Accounts[this->account-1].balance << endl;   
+    cout << " Enter amount of cash to withdraw: ";
+    int withdraw;
+    cin >> withdraw;
+    if (withdraw>this->Accounts[this->account-1].balance) {
+        cout << " Limit Excess!" << endl;
+    }
+    else {
+        this->Accounts[this->account-1].balance -= withdraw;
+        cout << "\n Withdrawn: $" << withdraw << "\n" << "Balance left: $" << this->Accounts[this->account-1].balance << endl;   
+    }
+}
+
+void Bank::balance() {
+    cout << "\n Current Balance: $" << this->Accounts[this->account-1].balance << endl;
+}
+
+void Bank::deposit() {
+    cout << "\n Current Balance: $" << this->Accounts[this->account-1].balance << endl;  
+    cout << " Enter amount of cash to deposit: ";
+    int deposit;
+    cin >> deposit;
+
+    this->Accounts[this->account-1].balance += deposit;
+    cout << "\n Deposited: $" << deposit << "\n" << "Balance left: $" << this->Accounts[this->account-1].balance << endl;   
 }
 
 bool Bank::checkPin(int pin) {
@@ -104,19 +140,11 @@ void Bank::selectAccount(int acc) {
     this->account = acc;
 }
 
-
-int Bank::withdraw() {
-    cout << " Enter amount of cash to withdraw: ";
-    int withdraw;
-    cin >> withdraw;
-    if (withdraw>this->Accounts[this->account-1].balance) {
-        cout << "Limit Excess" << endl;
-    }
-    else {
-        this->Accounts[this->account-1].balance -= withdraw;
-        cout << " Withdrawn: $" << withdraw << "\t" << "Balance left: $" << this->Accounts[this->account-1].balance << endl;   
-    }
-    
+void Bank::selectAction(int act) {
+    this->action = act;
+    if(act==1) this->balance();
+    else if(act==2) this->deposit();
+    else if(act==3) this->withdraw();
 }
 
 int main() {
@@ -127,7 +155,7 @@ int main() {
 		atm.pinNumber();
         Bank bank;
     	int pin;
-    	do{
+    	do {
         	cin >> pin;
             if (bank.checkPin(pin)) {
                 int acc, act;
@@ -136,7 +164,7 @@ int main() {
                 bank.selectAccount(acc);
                 atm.selectAction();
                 cin >> act;
-                bank.selectAction();
+                bank.selectAction(act);
                 break;
             }  
 
@@ -149,12 +177,10 @@ int main() {
                     exit();
                     break;
                 }
-
             }
     	} while(count<LOCK || !bank.checkPin(pin));
 	}
     
-    cout << "Exiting..." << endl;
-    
+    exit();
     return 0;
 }

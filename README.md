@@ -1,4 +1,7 @@
-# Simple-ATM-Controller Project using C++
+# Simple-ATM-Controller Project
+
+> Language: C++
+> Assignment Submission Date: 2021/09/17
 
 ## Project Directory Tree
 

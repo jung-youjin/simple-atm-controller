@@ -1,7 +1,7 @@
 # Simple-ATM-Controller Project
 
-> Language: C++
-> Assignment Submission Date: 2021/09/17
+- Language: C++
+- Assignment Submission Date: 2021/09/17
 
 ## Project Directory Tree
 
@@ -21,7 +21,7 @@ simple-atm-controller
 ```
 ## How to execute
 
-```
+``` bash
 $ git clone https://github.com/jung-youjin/simple-atm-controller.git
 $ cd simple-atm-controller
 $ make main
